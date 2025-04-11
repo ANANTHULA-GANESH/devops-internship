@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t my-node-app .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running basic test...'
+                sh 'node index.js & sleep 2 && curl -s http://localhost:3000'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying (mock step)...'
+            }
+        }
+    }
+}
