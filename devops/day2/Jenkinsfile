@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'my-node-app'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                dir('devops/day2') {
+                    sh 'docker build -t $IMAGE_NAME .'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing... (placeholder)'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying container...'
+                sh 'docker run -d -p 3000:3000 --name my-node-app-container $IMAGE_NAME'
+            }
+        }
+    }
+}
+
